@@ -18,7 +18,7 @@ def server():
 		sock, addr = s.accept()
 		#创建新线程来处理TCP连接：
 		t = threading.Thread(target=tcplink, args=(sock, addr))
-		t.start
+		t.start()
 		print('threading start')
 		print(sock,addr)
 
