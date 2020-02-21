@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Please Sign In</title>
+</head>
+<body>
+	
+	{% if message %}
+	<!--在Jinja2模板中，我们用{{ name }}表示一个需要替换的变量-->
+	<p style="color:red">{{message}}</p>
+	{% endif %}
+	<form action="/signin" method="post">
+		<legend>Please sign in:</legend>
+		<p><input name="username" placehoder="Username" value="{{username}}"></p>
+		<p><input name="password" placehoder="Password" type="password"></p>
+		<p><button typr="submit">Sign In</button></p>
+	</form>
+</body>
+</html>
