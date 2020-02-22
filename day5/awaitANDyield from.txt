@@ -1,0 +1,9 @@
+async def语法定义协程函数，在之前这个功能是通过装饰器实现的。
+但是这样定义的协程函数中不能使用yield语句，只允许使用return或await语句返回数据。
+
+await的使用场景与yield from类似，但是await接收的对象不同。
+yield from可以是任意的可迭代对象。而await接收的对象必须是可等待对象(awaitable object)
+
+注：1. async/await是在python3.5版么以及之后的版本中才能使用。
+2. async不能和yield同时使用。
+3.await只能作用于可等待对象
