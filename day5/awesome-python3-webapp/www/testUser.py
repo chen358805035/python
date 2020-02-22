@@ -8,7 +8,7 @@ class User(Model):
 	name = StringField()
 
 async def test(loop):
-	await orm.create_pool(loop =loop, user = 'root', password = '', db = 'awesome')
+	await orm.create_pool( user = 'root', password = '', db = 'test', loop = loop)
 	user = User (id = 111, name = 'chen')
 	await user.save()
 

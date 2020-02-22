@@ -19,7 +19,7 @@ async def create_pool(loop, **kw):
 		user = kw['user'],
 		password = kw['password'],
 		db = kw['db'],
-		charset = kw.get('charset', 'utf-8'),
+		charset = kw.get('charset', 'utf8'),#是utf8而不是utf-8
 		autocommit = kw.get('autocommit', True),
 		maxsize = kw.get('maxsize', 10),
 		minsize = kw.get('minsize', 1),
@@ -34,7 +34,7 @@ async def select(sql, args, size = None):
 		#class DictCursor:游标将结果作为字典返回
 		cur = await conn.cursor(aiomysql.DictCursor)
 		#replace('带操作的字符串'，'被换掉的内容'【要换的内容，可写可不写默认为null】)
-		await cur.execute(sql.replace('?', '%s'), args or ())
+		await cur.execute(sql.replace('?', "'%s'"), args or ())
 		if size:
 			#获取size数量的结果
 			rs = await cur.fetchmany(size)
@@ -50,18 +50,18 @@ async def execute(sql, args, autocommit=True):
 	log(sql)
 	
 	async with __pool.get() as conn:
-		if not aotucommit:
+		if not autocommit:
 			await conn.begin()
 		try:
-			async with conn.cousor(aiomysql.DictCursor) as cur:
+			async with conn.cursor(aiomysql.DictCursor) as cur:
 			#cur = await conn.cursor()
-				await cur.execute(sql.replace('?', '%s'), args)
+				await cur.execute(sql.replace('?', '%s'),args)
 				affected = cur.rowcount
-			if not aotucommit:
+			if not autocommit:
 				await conn.commit()
 			#await cur.close()
 		except BaseException as e:
-			if not aotucommit:
+			if not autocommit:
 				await conn.rollback()
 			# 触发异常后，后面的代码就不会再执行
 			raise
@@ -141,9 +141,9 @@ class ModelMetaclass(type):
 		attrs['__primary_key__'] = primaryKey#主键属性名
 		attrs['__fields__'] = fields#除主键值外的属性名
 		# 构造默认的SELECT, INSERT, UPDATE和DELETE语句:
-		attrs['__select__'] = 'select %s, %s from %s % (primaryKey, ','.join(escaped_fields), tableName)'
-		attrs['__insert__'] = 'insert into %s (%s, %s) value (%s)' % (tableName, ','.join(escaped_fields), primaryKey, create_args_string(len(escaped_fields)+1)) 
-		attrs['__update__'] = 'update %s set %s where %s =?' % (tableName, ','.join(map(lambda f: '%s =?' % (mappings.get(f).name or f), fields)), primaryKey)
+		attrs['__select__'] = 'select %s, %s from %s' % (primaryKey, ','.join(escaped_fields), tableName)
+		attrs['__insert__'] = 'insert into %s (%s, %s) value (%s)' % (tableName, ', '.join(escaped_fields), primaryKey, create_args_string(len(escaped_fields)+1)) 
+		attrs['__update__'] = 'update %s set %s where %s =?' % (tableName, ','.join(map(lambda f: '"%s" =?' % (mappings.get(f).name or f), fields)), primaryKey)
 		attrs['__delete__'] = 'delete from %s where %s =?' % (tableName, primaryKey)
 		return type.__new__(cls, name, bases, attrs)
 
