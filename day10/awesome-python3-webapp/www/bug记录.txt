@@ -1,0 +1,13 @@
+1、登陆界面input框不能输入？
+uikit.min.css默认使用uk-from-icon的属性pointer-events: none；因此表框无法点击。 
+在head中添加
+	<style type=text/css>
+        input {
+            pointer-events: auto;
+        }
+    </style>
+
+2、多次注册一直显示email值错误？
+在_RE_EMAIL = re.compile(r'^[a-z0-9\.\-\_]+@[a-z0-9\-\_]+(\.[a-z0-9\-\_]+){1,4}$')中通过正则表达式匹配邮箱时‘+’前后不能加空格。
+
+3、/api/authenticate是一个POST请求，错误绑定成GET，导致浏览器出现405错误。
