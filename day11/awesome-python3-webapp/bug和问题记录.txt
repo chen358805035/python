@@ -1,0 +1,13 @@
+﻿1、后端获取不到数据，保存日志只刷新页面不跳转到/api/blogs？
+event.preventDefault() 函数写错。  
+
+在用jQuery给button绑定事件的时候， 在form表单中 button会有一个会自动刷新页面的默认行为
+使用event.preventDefault() 函数取消自动刷新页面的默认行为
+
+我的理解 ：每点一次“保存”都会刷新页面 ， 浏览器会再次发出一个GET请求，原url，
+后端都会一直进入处理该url的函数中，而导致不能接受到输入的数据。而且每次刷新都会清除输入的数据。
+
+2、v-repeat写错造成浏览器不能显示添加的日志信息。
+把v-repeat="blog:blogs"看成循环代码，可以在一个<tr>内部引用循环变量blog
+
+3、发现在location.assign('/manage/blogs' );中path末尾不能加/ 比如像这样location.assign('/manage/blogs/' );看似没错结合后端看，定义的是@get('/manage/blogs')，是没有这个url对应的处理函数
