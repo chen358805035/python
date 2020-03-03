@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
+#-*- utf-8 -*-
+
 #编写ORM
 #ORM即Object-Relationl Mapping，它的作用是在关系型数据库和对象之间作一个映射，
 #这样，我们在具体的操作数据库的时候，就不需要再去和复杂的SQL语句打交道，

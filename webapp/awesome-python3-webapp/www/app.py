@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
+#-*- utf-8 -*-
 #WEB APP骨架
 import logging; logging.basicConfig(level = logging.INFO)
 
@@ -135,7 +135,7 @@ async def init(loop):
 
 	add_routes(app, 'handlers')
 	add_static(app)
-	srv = await loop.create_server(app.make_handler(), '127.0.0.1', 9002)
+	srv = await loop.create_server(app.make_handler(), '127.0.0.1', 9000)
 	logging.info('server started at http://127.0.0.1:9000...')
 	return srv
 	# app = web.Application(loop = loop)

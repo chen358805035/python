@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 'url handlers'
 
-import re, time, json, logging, hashlib, base64, asyncio
+import os, re, time, json, logging, hashlib, base64, asyncio
 from coroweb import get, post
 from models import User, Comment, Blog, next_id
 from apis import APIValueError, APIResourceNotFoundError, APIError, Page,APIPermissionError
@@ -65,7 +65,21 @@ async def cookie2user(cookie_str):
 
 
 #处理首页URL的函数：
-
+@get('/study')
+def study_note(*, page = '1'):
+	path = os.path.join(os.path.abspath('.'),'WebAppStudyNote.MD')
+	pa = eval(repr(path).replace('\\\\', '/'))
+	#pa = repr(pa).replace('\\', '/')
+	#.encode('utf-8')
+	#pa = unicode(path, 'utf-8')
+	with open(pa, 'r', encoding='utf-8') as f:
+		Note = f.read()
+	note = markdown2.markdown(Note)
+	return {
+		'__template__' : 'study.html',
+		'note' : note,
+		'page_index': get_page_index(page)
+	}
 
 
 @get('/register')

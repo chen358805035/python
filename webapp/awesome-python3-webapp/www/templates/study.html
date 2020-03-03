@@ -1,0 +1,15 @@
+{% extends '__base__.html' %}
+
+{% block title %}学习记录{% endblock %}
+
+{% block content %}
+
+<div class="uk-width-medium-3-4">
+	<article class="uk-article">
+		<h2>陈铂</h2>
+		<p>{{note|safe}}</p>
+	</article>
+</div>
+<!--div v-component="pagination" v-with="page"></div-->
+
+{% endblock %}
