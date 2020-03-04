@@ -52,4 +52,6 @@ event.preventDefault() 函数写错。
 
 >>2、访问服务器时只显示hello页面  
 >>解决方法：将default配置文件中的端口改了  
->>
+
+#2020-3-4  
+>>1、html中 $('#vm')的意思是获取页面中id为vm的对象  
