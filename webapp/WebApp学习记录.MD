@@ -54,4 +54,11 @@ event.preventDefault() 函数写错。
 >>解决方法：将default配置文件中的端口改了  
 
 #2020-3-4  
->>1、html中 $('#vm')的意思是获取页面中id为vm的对象  
+>>1、javascript中 $('#vm')的意思是获取页面中id为vm的对象  
+
+>>2、javascript中var是用于声明变量  
+
+>>3、javascript中Vue 是简单易用的MVVM(Model View ViewMode)框架;  
+
+>>>>el：element，需要获取的对应元素，html中的容器，（id名）
+>>>>data：数据存储，里面的值自己设置;data里的参数会传入el: id名对应的容器中  
