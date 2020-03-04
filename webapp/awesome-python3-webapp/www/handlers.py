@@ -67,13 +67,12 @@ async def cookie2user(cookie_str):
 #处理首页URL的函数：
 @get('/study')
 def study_note(*, page = '1'):
-	path = os.path.join(os.path.abspath('.'),'WebAppStudyNote.MD')
+	page_index = get_page_index(page)
+	path = os.path.join(os.path.abspath('.'),'WebApp学习记录.MD')
 	pa = eval(repr(path).replace('\\\\', '/'))
-	#pa = repr(pa).replace('\\', '/')
-	#.encode('utf-8')
-	#pa = unicode(path, 'utf-8')
+	
 	with open(pa, 'r', encoding='utf-8') as f:
-		Note = f.read()
+		Note = f.read(1024)
 	note = markdown2.markdown(Note)
 	return {
 		'__template__' : 'study.html',
@@ -281,7 +280,7 @@ async def api_blogs(*, page = '1'):
 	p = Page(num, page_index)
 	if num ==0:
 		return dict(page = p, blogs = ())
-	blogs = await Blog.findAll(orderBy = 'created_at desc', limlt= (p.offset, p.limit))
+	blogs = await Blog.findAll(orderBy = 'created_at desc', limit= (p.offset, p.limit))
 	return dict(page = p, blogs = blogs)
 
 @get('/api/blogs/{id}')
