@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>result</title>
+</head>
+<body>
+	<table border="1">
+		{% for k, v in result.items() %}
+		<tr>
+			<th>
+				{{k}}			
+			</th>
+			<td>{{v}}</td>
+		</tr>
+		{% endfor %}
+	</table>
+</body>
+</html>
