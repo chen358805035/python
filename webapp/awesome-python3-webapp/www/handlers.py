@@ -9,6 +9,7 @@ from apis import APIValueError, APIResourceNotFoundError, APIError, Page,APIPerm
 from config import configs
 from aiohttp import web
 import markdown2
+from send_email import send_email
 COOKIE_NAME = 'awesession'
 _COOKIE_KEY = configs.session.secret
 
@@ -300,7 +301,9 @@ async def api_create_blog(request, *, name, summary, content):
 		raise APIValueError('content', 'content cannot be empty.')
 	blog = Blog(user_id = request.__user__.id, user_name = request.__user__.name, user_image = request.__user__.image, name = name.strip(), summary = summary.strip(), content = content.strip())
 	logging.info('blog database %s' % blog)
+	
 	await blog.save()
+	send_email(request.__user__.name, content.strip(), name.strip())
 	return blog
 
 @post('/api/blogs/{id}')
