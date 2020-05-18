@@ -11,7 +11,7 @@ def _format_addr(s):
 def send_email(user_name, content, name):
     from_addr = 'c18683346287@163.com'
     password = 'YPNYKMZURQNXXWOZ'
-    #password = 'tvbkcnasosoobgef'
+   
 
     to_addr = '358805035@qq.com'
 
